@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VePay — Fast Money Transfers for South Asian Communities</title>
+  <meta name="description" content="Send money home to India, Sri Lanka & beyond. Fast, safe, zero hidden fees. Built for South Asian communities in Australia."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+Tamil:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --forest: #0D3D2B;
+      --forest-mid: #154D37;
+      --forest-light: #1E6347;
+      --gold: #C9922A;
+      --gold-light: #E8B84B;
+      --gold-pale: #F5E6C8;
+      --cream: #FAF7F0;
+      --white: #FFFFFF;
+      --ink: #0A1A10;
+      --muted: #5A7A68;
+      --border: #D8E8DF;
+      --border-dark: #1E4D35;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--forest);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 3rem; height: 66px;
+      border-bottom: 2px solid var(--gold);
+    }
+    .logo { display: flex; align-items: center; gap: 0.65rem; }
+    .logo-gem {
+      width: 36px; height: 36px;
+      background: var(--gold);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 0.85rem; font-weight: 700; color: var(--forest);
+    }
+    .logo-word {
+      font-family: 'Fraunces', serif;
+      font-weight: 900; font-size: 1.55rem;
+      color: var(--white); letter-spacing: -0.02em;
+    }
+    .logo-word span { color: var(--gold-light); }
+
+    .nav-links { display: flex; gap: 2.5rem; }
+    .nav-links a {
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      font-size: 0.85rem; font-weight: 600; letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--gold-light); }
+
+    .nav-cta {
+      background: var(--gold); color: var(--forest);
+      font-weight: 800; font-size: 0.85rem; letter-spacing: 0.03em;
+      padding: 0.65rem 1.6rem; border: none; cursor: pointer;
+      border-radius: 4px; text-decoration: none; transition: all 0.2s;
+      display: inline-block;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest);
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 7rem 3rem 5rem;
+      position: relative; overflow: hidden;
+    }
+
+    .hero-pattern {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: radial-gradient(circle, rgba(201,146,42,0.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,146,42,0.1) 0%, transparent 65%);
+      top: -200px; right: -200px; pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(30,99,71,0.4) 0%, transparent 65%);
+      bottom: -100px; left: 30%; pointer-events: none;
+    }
+
+    .hero-left { position: relative; z-index: 1; padding-right: 3rem; }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      border: 1px solid rgba(201,146,42,0.4);
+      background: rgba(201,146,42,0.08);
+      border-radius: 3px;
+      padding: 0.4rem 1rem;
+      font-size: 0.72rem; font-weight: 700;
+      color: var(--gold-light); letter-spacing: 0.1em;
+      text-transform: uppercase; margin-bottom: 2rem;
+    }
+    .pulse { width: 6px; height: 6px; background: var(--gold-light); border-radius: 50%; animation: p 1.5s ease infinite; }
+    @keyframes p { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 5.5vw, 5.5rem);
+      line-height: 1.0;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+    }
+    .h1-gold { color: var(--gold-light); font-style: italic; display: block; }
+    .h1-tamil {
+      font-family: 'Noto Sans Tamil', sans-serif;
+      font-size: 0.3em; font-style: normal; font-weight: 400;
+      color: rgba(255,255,255,0.3); display: block;
+      margin-top: 0.5rem; letter-spacing: 0.05em;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem; color: rgba(255,255,255,0.6);
+      line-height: 1.8; max-width: 460px; margin-bottom: 2.5rem; font-weight: 400;
+    }
+
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-gold {
+      background: var(--gold); color: var(--forest);
+      font-weight: 800; font-size: 0.95rem; padding: 1rem 2.25rem;
+      border: none; cursor: pointer; border-radius: 4px;
+      text-decoration: none; transition: all 0.2s; display: inline-block;
+    }
+    .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(201,146,42,0.35); }
+
+    .btn-ghost-white {
+      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.65);
+      font-weight: 600; font-size: 0.9rem; padding: 1rem 2rem;
+      border-radius: 4px; text-decoration: none; transition: all 0.2s; display: inline-block;
+    }
+    .btn-ghost-white:hover { border-color: var(--gold-light); color: var(--gold-light); }
+
+    .hero-trust {
+      display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      display: flex; align-items: center; gap: 0.4rem;
+      font-size: 0.78rem; font-weight: 600;
+      color: rgba(255,255,255,0.35); letter-spacing: 0.03em;
+    }
+    .trust-item::before { content: '✓'; color: var(--gold-light); }
+
+    /* CARD */
+    .hero-right { position: relative; z-index: 1; display: flex; justify-content: center; }
+
+    .transfer-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      width: 100%; max-width: 410px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+    .card-top {
+      background: var(--gold);
+      padding: 1.25rem 1.75rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .card-top-title {
+      font-family: 'Fraunces', serif;
+      font-weight: 700; font-size: 1rem; color: var(--forest);
+    }
+    .live-pill {
+      display: flex; align-items: center; gap: 0.35rem;
+      background: var(--forest); border-radius: 100px;
+      padding: 0.22rem 0.7rem;
+      font-size: 0.65rem; font-weight: 800;
+      color: var(--gold-light); letter-spacing: 0.08em; text-transform: uppercase;
+    }
+    .live-dot { width: 5px; height: 5px; background: #4ADE80; border-radius: 50%; animation: p 1s infinite; }
+
+    .card-body { padding: 1.75rem; }
+
+    .field {
+      background: var(--cream);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem 1.4rem;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.2s;
+    }
+    .field:hover { border-color: var(--gold); }
+    .field-label { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+    .field-val {
+      font-family: 'Fraunces', serif;
+      font-weight: 900; font-size: 2.2rem; color: var(--ink); line-height: 1;
+    }
+    .field-val .curr { font-size: 0.85rem; color: var(--muted); font-weight: 500; margin-left: 0.3rem; font-family: 'DM Sans', sans-serif; }
+    .field-val.green { color: var(--forest-light); }
+
+    .swap-row { text-align: center; padding: 0.2rem; font-size: 1.1rem; color: var(--gold); }
+
+    .rate-box {
+      background: var(--forest);
+      border-radius: 8px;
+      padding: 1rem 1.4rem;
+      margin-top: 0.75rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .rate-label { font-size: 0.7rem; font-weight: 600; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.06em; }
+    .rate-val { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; color: var(--gold-light); }
+
+    .fee-box {
+      background: rgba(13,61,43,0.06);
+      border: 1px solid rgba(13,61,43,0.12);
+      border-radius: 8px;
+      padding: 0.8rem 1.4rem;
+      margin-top: 0.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .fee-label { font-size: 0.68rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .fee-val { font-size: 0.8rem; font-weight: 800; color: var(--forest-light); }
+
+    .send-btn {
+      width: 100%; background: var(--forest);
+      color: var(--gold-light); font-family: 'DM Sans', sans-serif;
+      font-weight: 800; font-size: 1rem; padding: 1.1rem;
+      border: none; cursor: pointer; border-radius: 8px; margin-top: 1rem;
+      transition: all 0.2s; letter-spacing: 0.02em;
+    }
+    .send-btn:hover { background: var(--forest-light); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(13,61,43,0.4); }
+
+    .flag-strip {
+      display: flex; gap: 0.4rem; flex-wrap: wrap;
+      padding: 1.25rem 1.75rem;
+      background: var(--cream); border-top: 1px solid var(--border);
+    }
+    .flag-tag {
+      font-size: 0.72rem; font-weight: 600; color: var(--muted);
+      padding: 0.25rem 0.65rem; background: white;
+      border: 1px solid var(--border); border-radius: 3px;
+      transition: all 0.2s;
+    }
+    .flag-tag:hover { border-color: var(--gold); color: var(--forest); }
+
+    /* GOLD TICKER */
+    .ticker {
+      background: var(--gold-pale); border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+      padding: 0.7rem 0; overflow: hidden; white-space: nowrap;
+    }
+    .ticker-inner {
+      display: inline-block; animation: tick 35s linear infinite;
+      font-size: 0.8rem; font-weight: 700; color: var(--forest);
+      letter-spacing: 0.04em;
+    }
+    @keyframes tick { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .ticker-sep { color: var(--gold); margin: 0 1.5rem; }
+
+    /* STATS */
+    .stats { background: var(--forest); padding: 4rem 3rem; }
+    .stats-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 2rem;
+    }
+    .stat { border-left: 3px solid var(--gold); padding-left: 1.5rem; }
+    .stat-num {
+      font-family: 'Fraunces', serif; font-weight: 900; font-size: 3rem;
+      color: var(--gold-light); line-height: 1; letter-spacing: -0.02em;
+    }
+    .stat-label { font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.4); margin-top: 0.35rem; text-transform: uppercase; letter-spacing: 0.05em; }
+
+    /* FEATURES */
+    .features { padding: 7rem 3rem; max-width: 1200px; margin: 0 auto; }
+    .section-eyebrow {
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem;
+    }
+    h2 {
+      font-family: 'Fraunces', serif; font-weight: 900;
+      font-size: clamp(2.2rem, 3.5vw, 3.5rem);
+      color: var(--ink); line-height: 1.05; letter-spacing: -0.02em;
+    }
+    h2 em { font-style: italic; color: var(--forest-light); }
+
+    .feat-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .feat-card {
+      background: white; border-radius: 10px;
+      padding: 2.25rem 2rem;
+      border: 1.5px solid var(--border);
+      transition: all 0.25s; position: relative; overflow: hidden;
+    }
+    .feat-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--forest), var(--gold));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .feat-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(13,61,43,0.12); border-color: rgba(201,146,42,0.3); }
+    .feat-card:hover::before { transform: scaleX(1); }
+    .feat-icon { font-size: 2rem; margin-bottom: 1.25rem; display: block; }
+    .feat-card h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-bottom: 0.75rem; }
+    .feat-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.75; }
+
+    /* COUNTRIES */
+    .countries { background: var(--ink); padding: 7rem 3rem; }
+    .countries-inner { max-width: 1200px; margin: 0 auto; }
+    .countries .section-eyebrow { color: var(--gold-light); }
+    .countries h2 { color: var(--white); }
+    .countries h2 em { color: var(--gold-light); }
+
+    .country-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: #1A2A1F;
+      margin-top: 3.5rem; border: 1px solid #1A2A1F;
+    }
+    .country-card {
+      background: #0F1F16; padding: 2rem 1.75rem;
+      transition: background 0.2s; cursor: default;
+    }
+    .country-card:hover { background: var(--forest-mid); }
+    .cflag { font-size: 2.2rem; margin-bottom: 0.75rem; display: block; }
+    .cname { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1.05rem; color: white; margin-bottom: 0.35rem; }
+    .crate { font-size: 0.75rem; font-weight: 700; color: var(--gold-light); }
+    .cspeed { font-size: 0.7rem; color: #3A5A45; margin-top: 0.3rem; font-weight: 600; }
+
+    /* QUOTE */
+    .quote-section {
+      background: var(--gold-pale); padding: 7rem 3rem;
+      border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+      text-align: center;
+    }
+    .quote-section blockquote p {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 700;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      color: var(--forest); line-height: 1.35;
+      max-width: 860px; margin: 0 auto 1.5rem;
+    }
+    .quote-section blockquote cite {
+      font-size: 0.82rem; font-weight: 700; color: var(--gold);
+      text-transform: uppercase; letter-spacing: 0.12em; font-style: normal;
+    }
+
+    /* HOW */
+    .how { padding: 7rem 3rem; background: var(--cream); }
+    .how-inner { max-width: 1200px; margin: 0 auto; }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .step {
+      background: white; border-radius: 10px; padding: 2.25rem 2rem;
+      border: 1.5px solid var(--border);
+      transition: all 0.25s; text-align: center;
+    }
+    .step:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(13,61,43,0.1); border-color: var(--gold); }
+    .step-circle {
+      width: 54px; height: 54px; border-radius: 50%;
+      background: var(--forest); color: var(--gold-light);
+      font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+    }
+    .step h3 { font-family: 'Fraunces', serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.6rem; }
+    .step p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+    /* TESTI */
+    .testi { padding: 7rem 3rem; background: white; }
+    .testi-inner { max-width: 1200px; margin: 0 auto; }
+    .testi-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .testi-card {
+      background: var(--cream); border-radius: 10px;
+      padding: 2.25rem; border: 1.5px solid var(--border);
+      transition: all 0.2s;
+    }
+    .testi-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+    .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 1.25rem; letter-spacing: 0.1em; }
+    .testi-text {
+      font-family: 'Fraunces', serif; font-style: italic;
+      font-size: 0.98rem; color: var(--ink); line-height: 1.75; margin-bottom: 1.5rem;
+    }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .avatar {
+      width: 40px; height: 40px; background: var(--forest); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.8rem; color: var(--gold-light);
+    }
+    .t-name { font-weight: 800; font-size: 0.88rem; color: var(--ink); }
+    .t-loc { font-size: 0.72rem; color: var(--muted); }
+
+    /* CTA */
+    .cta { background: var(--forest); padding: 8rem 3rem; text-align: center; position: relative; overflow: hidden; }
+    .cta::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(201,146,42,0.05) 1px, transparent 1px);
+      background-size: 40px 40px; pointer-events: none;
+    }
+    .cta .section-eyebrow { color: var(--gold-light); }
+    .cta h2 { color: var(--white); margin-bottom: 1rem; }
+    .cta h2 em { color: var(--gold-light); }
+    .cta p { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 500px; margin: 0 auto 3rem; line-height: 1.75; }
+    .cta-form { display: flex; gap: 0; max-width: 480px; margin: 0 auto; }
+    .cta-form input {
+      flex: 1; background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12); border-right: none;
+      color: white; font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem; padding: 1rem 1.5rem;
+      border-radius: 4px 0 0 4px; outline: none; transition: border-color 0.2s;
+    }
+    .cta-form input:focus { border-color: var(--gold); }
+    .cta-form input::placeholder { color: rgba(255,255,255,0.25); }
+
+    /* FOOTER */
+    footer {
+      background: var(--ink); border-top: 3px solid var(--gold);
+      padding: 2.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-note { font-size: 0.7rem; color: #2A3A2F; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.75rem; color: #3A5A45; text-decoration: none; font-weight: 700; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--gold-light); }
+
+    /* REVEAL */
+    .reveal { opacity:0; transform:translateY(24px); transition:opacity 0.6s ease,transform 0.6s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:900px){
+      .hero{grid-template-columns:1fr; padding:5rem 1.5rem 3rem;}
+      .hero-left{padding-right:0;}
+      .stats-inner{grid-template-columns:repeat(2,1fr);}
+      .feat-grid{grid-template-columns:1fr;}
+      .country-grid{grid-template-columns:repeat(2,1fr);}
+      .steps-grid{grid-template-columns:repeat(2,1fr);}
+      .testi-grid{grid-template-columns:1fr;}
+      .cta-form{flex-direction:column;}
+      .cta-form input{border-right:1.5px solid rgba(255,255,255,0.12); border-radius:4px;}
+      nav{padding:0 1.25rem;}
+      .nav-links{display:none;}
+      footer{flex-direction:column;text-align:center;}
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <div class="logo-gem">வே</div>
+    <div class="logo-word">Ve<span>Pay</span></div>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Why VePay</a>
+    <a href="#countries">Countries</a>
+    <a href="#how">How it works</a>
+  </div>
+  <a href="https://wise.prf.hn/click/camref:YOUR_WISE_LINK" target="_blank" class="nav-cta">Send Money →</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-left">
+    <div class="hero-badge"><span class="pulse"></span> Now Live in Australia</div>
+    <h1>
+      Send Money
+      <span class="h1-gold">வேகமாக.</span>
+      <span class="h1-tamil">vēgamāga — blazing fast, in Tamil</span>
+    </h1>
+    <p class="hero-desc">Transfers to India, Sri Lanka, Malaysia and beyond — built for South Asian families in Australia. Honest rates, no hidden fees, arrives in minutes.</p>
+    <div class="hero-btns">
+      <a href="https://wise.prf.hn/click/camref:YOUR_WISE_LINK" target="_blank" class="btn-gold">Send Money Now →</a>
+      <a href="#how" class="btn-ghost-white">How it works</a>
+    </div>
+    <div class="hero-trust">
+      <div class="trust-item">AUSTRAC Registered</div>
+      <div class="trust-item">Zero hidden fees</div>
+      <div class="trust-item">Tamil Support</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="transfer-card">
+      <div class="card-top">
+        <div class="card-top-title">Transfer Calculator</div>
+        <div class="live-pill"><span class="live-dot"></span> Live Rates</div>
+      </div>
+      <div class="card-body">
+        <div class="field">
+          <div class="field-label">You Send</div>
+          <div class="field-val">$500 <span class="curr">AUD</span></div>
+        </div>
+        <div class="swap-row">⇅</div>
+        <div class="field">
+          <div class="field-label">They Receive</div>
+          <div class="field-val green">₹27,850 <span class="curr">INR</span></div>
+        </div>
+        <div class="rate-box">
+          <span class="rate-label">Exchange Rate</span>
+          <span class="rate-val">1 AUD = ₹55.70</span>
+        </div>
+        <div class="fee-box">
+          <span class="fee-label">Transfer Fee</span>
+          <span class="fee-val">FREE — first 3 transfers</span>
+        </div>
+        <button class="send-btn" onclick="window.open('https://wise.prf.hn/click/camref:YOUR_WISE_LINK','_blank')">Send ₹27,850 Now →</button>
+      </div>
+      <div class="flag-strip">
+        <div class="flag-tag">🇮🇳 India</div>
+        <div class="flag-tag">🇱🇰 Sri Lanka</div>
+        <div class="flag-tag">🇲🇾 Malaysia</div>
+        <div class="flag-tag">🇵🇰 Pakistan</div>
+        <div class="flag-tag">🇧🇩 Bangladesh</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="ticker">
+  <div class="ticker-inner">
+    First 3 transfers FREE <span class="ticker-sep">◆</span>
+    Arrives in 2 minutes <span class="ticker-sep">◆</span>
+    55+ countries <span class="ticker-sep">◆</span>
+    Tamil support available <span class="ticker-sep">◆</span>
+    No hidden fees, ever <span class="ticker-sep">◆</span>
+    AUSTRAC registered <span class="ticker-sep">◆</span>
+    Bank-grade security <span class="ticker-sep">◆</span>
+    First 3 transfers FREE <span class="ticker-sep">◆</span>
+    Arrives in 2 minutes <span class="ticker-sep">◆</span>
+    55+ countries <span class="ticker-sep">◆</span>
+    Tamil support available <span class="ticker-sep">◆</span>
+    No hidden fees, ever <span class="ticker-sep">◆</span>
+    AUSTRAC registered <span class="ticker-sep">◆</span>
+    Bank-grade security <span class="ticker-sep">◆</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat reveal"><div class="stat-num">$0</div><div class="stat-label">Fee · first 3 transfers</div></div>
+    <div class="stat reveal"><div class="stat-num">55+</div><div class="stat-label">Countries supported</div></div>
+    <div class="stat reveal"><div class="stat-num">2 min</div><div class="stat-label">Average transfer time</div></div>
+    <div class="stat reveal"><div class="stat-num">4.9★</div><div class="stat-label">Community rating</div></div>
+  </div>
+</div>
+
+<div class="features" id="features">
+  <div class="section-eyebrow">Why VePay</div>
+  <h2>Built for <em>our community.</em></h2>
+  <div class="feat-grid">
+    <div class="feat-card reveal"><span class="feat-icon">⚡</span><h3>Instant Transfers</h3><p>Most transfers arrive in under 2 minutes. Your family isn't waiting around while banks process queues.</p></div>
+    <div class="feat-card reveal"><span class="feat-icon">💸</span><h3>Honest Rates</h3><p>We show the real rate upfront. No inflated spread buried in fine print. What you see is what they get.</p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🏦</span><h3>Bank & Cash Pickup</h3><p>Direct to bank accounts or cash pickup at local agents across India, Sri Lanka, Malaysia and more.</p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🗣️</span><h3>Tamil Support</h3><p>Our team speaks Tamil, Hindi, Sinhala and English. Real people, your language, when you need help.</p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🔄</span><h3>Scheduled Transfers</h3><p>Set up automatic monthly transfers for parents, rent or loans. Set it once, we handle the rest.</p></div>
+    <div class="feat-card reveal"><span class="feat-icon">🔒</span><h3>Fully Regulated</h3><p>AUSTRAC registered. Bank-grade encryption. Your money and identity are always protected.</p></div>
+  </div>
+</div>
+
+<div class="countries" id="countries">
+  <div class="countries-inner">
+    <div class="section-eyebrow">Where We Send</div>
+    <h2>Australia to <em>everywhere home is.</em></h2>
+    <div class="country-grid">
+      <div class="country-card reveal"><span class="cflag">🇮🇳</span><div class="cname">India</div><div class="crate">1 AUD = ₹55.70 INR</div><div class="cspeed">⚡ ~2 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇱🇰</span><div class="cname">Sri Lanka</div><div class="crate">1 AUD = Rs 180 LKR</div><div class="cspeed">⚡ ~5 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇲🇾</span><div class="cname">Malaysia</div><div class="crate">1 AUD = RM 2.09</div><div class="cspeed">⚡ ~2 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇵🇰</span><div class="cname">Pakistan</div><div class="crate">1 AUD = Rs 157 PKR</div><div class="cspeed">⚡ ~10 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇧🇩</span><div class="cname">Bangladesh</div><div class="crate">1 AUD = ৳58.9 BDT</div><div class="cspeed">⚡ ~15 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇵🇭</span><div class="cname">Philippines</div><div class="crate">1 AUD = ₱32.1 PHP</div><div class="cspeed">⚡ ~5 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🇳🇵</span><div class="cname">Nepal</div><div class="crate">1 AUD = Rs 72 NPR</div><div class="cspeed">⚡ ~10 minutes</div></div>
+      <div class="country-card reveal"><span class="cflag">🌍</span><div class="cname">55+ More</div><div class="crate">Live competitive rates</div><div class="cspeed">🌐 Global coverage</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="quote-section">
+  <blockquote>
+    <p>"Your family doesn't wait. Neither does your money."</p>
+    <cite>— The VePay Promise</cite>
+  </blockquote>
+</div>
+
+<div class="how" id="how">
+  <div class="how-inner">
+    <div class="section-eyebrow">How It Works</div>
+    <h2>Four steps. <em>Two minutes.</em></h2>
+    <div class="steps-grid">
+      <div class="step reveal"><div class="step-circle">1</div><h3>Create Account</h3><p>Sign up in 3 minutes with your Australian ID. Verified once, securely, permanently.</p></div>
+      <div class="step reveal"><div class="step-circle">2</div><h3>Enter Amount</h3><p>Type how much to send. See exactly what your family receives — live, no surprises.</p></div>
+      <div class="step reveal"><div class="step-circle">3</div><h3>Add Recipient</h3><p>Bank account, phone number or cash pickup. Save recipients for next time.</p></div>
+      <div class="step reveal"><div class="step-circle">4</div><h3>Done ✓</h3><p>Confirm and pay. Family notified the moment money lands.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="testi">
+  <div class="testi-inner">
+    <div class="section-eyebrow">Community Voices</div>
+    <h2>Trusted by the <em>diaspora.</em></h2>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Sending money to Chennai for 8 years. VePay gives better rates than my bank and amma gets it in minutes. இது மிகவும் நல்லது!"</div>
+        <div class="testi-author"><div class="avatar">KM</div><div><div class="t-name">Karthik M.</div><div class="t-loc">Melbourne → Chennai 🇮🇳</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"My parents in Colombo depend on my monthly transfers. The recurring feature means I never miss a payment. Total peace of mind."</div>
+        <div class="testi-author"><div class="avatar">NP</div><div><div class="t-name">Nirosha P.</div><div class="t-loc">Sydney → Colombo 🇱🇰</div></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <div class="testi-text">"Support answered in Tamil — a real person, solved my issue in 10 minutes. Never expected that from a fintech. Absolutely brilliant."</div>
+        <div class="testi-author"><div class="avatar">RA</div><div><div class="t-name">Ramya A.</div><div class="t-loc">Brisbane → Madurai 🇮🇳</div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <div class="section-eyebrow">Get Started</div>
+  <h2>Start Sending <em>Today.</em></h2>
+  <p>Join thousands of Australians already using VePay. First 3 transfers completely free — no promo code needed.</p>
+  <div class="cta-form">
+    <input type="email" placeholder="Enter your email address" />
+    <a href="https://wise.prf.hn/click/camref:YOUR_WISE_LINK" target="_blank" class="btn-gold" style="border-radius:0 4px 4px 0;white-space:nowrap;">Get Access →</a>
+  </div>
+</div>
+
+<footer>
+  <div class="logo">
+    <div class="logo-gem" style="width:30px;height:30px;font-size:0.8rem;">வே</div>
+    <div class="logo-word" style="font-size:1.2rem;">Ve<span>Pay</span></div>
+  </div>
+  <div class="footer-note">© 2025 VePay Pty Ltd · ABN pending · AUSTRAC pending · vepay.com.au</div>
+  <div class="footer-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">Support</a>
+    <a href="#">தமிழ்</a>
+  </div>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
